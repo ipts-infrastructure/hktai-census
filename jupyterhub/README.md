@@ -75,6 +75,12 @@ cd jupyterhub && docker compose restart
 cd jupyterhub && docker compose logs -f
 ```
 
+### Reset Everything
+```bash
+docker-compose down -v
+docker-compose up -d
+```
+
 ## 🔖 References
 
 - [JupyterHub Documentation](https://jupyterhub.readthedocs.io/) - JupyterHub setup and configuration
