@@ -26,7 +26,7 @@ services:
       - "8000:8000"
     environment:
       # This username will be a JupyterHub admin
-      JUPYTERHUB_ADMIN: hktdev
+      JUPYTERHUB_ADMIN: admin
       # All containers will join this network
       DOCKER_NETWORK_NAME: jupyterhub-network
       # JupyterHub will spawn this Notebook image for users
