@@ -24,7 +24,7 @@ This repository contains Docker configurations for running Jupyter Notebook and 
    ```
 
 3. Access JupyterHub at `http://localhost:8000`
-4. Create an account or login (admin user: `hktdev`)
+4. Create an account or login (admin user: `admin`)
 
 ## 🔐 Authentication Methods
 
@@ -33,7 +33,7 @@ JupyterHub supports multiple authentication methods. Edit `jupyterhub_config.py`
 ### Native Authenticator (Default)
 - Users can create accounts directly
 - Open signup enabled by default
-- Admin user: `hktdev` (configurable via `JUPYTERHUB_ADMIN` in docker-compose.yml)
+- Admin user: `admin` (configurable via `JUPYTERHUB_ADMIN` in docker-compose.yml)
 - First user to sign up with the admin username automatically becomes admin
 
 ### Google OAuth
