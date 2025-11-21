@@ -1,17 +1,5 @@
 services:
 
-  flask1:
-    build: .
-    container_name: flask1
-    ports:
-      - "5001:5000"
-      
-  flask2:
-    build: .
-    container_name: flask2
-    ports:
-      - "5002:5000"
-
   nginx:
     image: nginx:latest
     container_name: nginx
