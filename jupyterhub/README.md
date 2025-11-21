@@ -77,8 +77,8 @@ cd jupyterhub && docker compose logs -f
 
 ### Reset Everything
 ```bash
-docker-compose down -v
-docker-compose up -d
+docker compose down -v
+docker compose up -d
 ```
 
 ## 🔖 References

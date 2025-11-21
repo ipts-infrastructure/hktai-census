@@ -17,7 +17,7 @@ cd nginx-goaccess-docker
 
 ### 2. Start Services
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### 3. Configure Test Script
@@ -67,7 +67,7 @@ Open `./goaccess/report.html` to view the generated GoAccess HTML report.
 sudo netstat -tulpn | grep -E ':(81|7890|5001|5002)'
 
 # View container logs
-docker-compose logs [service-name]
+docker compose logs [service-name]
 ```
 
 ### GoAccess Not Showing Data
@@ -81,8 +81,8 @@ docker exec goaccess cat /etc/goaccess/goaccess.conf
 
 ### Reset Everything
 ```bash
-docker-compose down -v
-docker-compose up -d
+docker compose down -v
+docker compose up -d
 ```
 
 ## 🔖 References
