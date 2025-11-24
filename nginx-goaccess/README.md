@@ -64,18 +64,12 @@ Open `./goaccess/report.html` to view the generated GoAccess HTML report.
 
 ```
 ├── compose.yaml           # Docker Compose configuration
-├── Dockerfile             # Flask app container
-├── app.py                 # Simple Flask health check service
-├── requirements.txt       # Python dependencies
 ├── nginx_config/
 │   └── nginx.conf        # Nginx load balancer configuration
 ├── goaccess_config/
 │   └── goaccess.conf     # GoAccess log format configuration
 ├── goaccess/
 │   └── report.html       # Generated GoAccess HTML report
-├── scripts/
-│   ├── send_requests.sh  # Traffic generation script (auto-created)
-│   └── example_payload.json
 └── logs/                 # Nginx access/error logs (auto-created)
 ```
 
