@@ -11,20 +11,62 @@ This repository contains Docker configurations for running Jupyter Notebook and 
 
 ## 🛠️ Getting Started
 
-### JupyterHub (Multi User)
+**JupyterHub (Multi-User)**
 
-1. Navigate to the jupyterhub directory:
-   ```bash
-   cd jupyterhub
-   ```
+- **Step 1 — Change to the JupyterHub directory:**
 
-2. Start JupyterHub:
-   ```bash
-   docker compose up -d
-   ```
+```bash
+cd jupyterhub
+```
 
-3. Access JupyterHub at `http://localhost:8000`
-4. Create an account or login (admin user: `admin`)
+- **Step 2 — Choose the Notebook image (Python version)**
+
+Open `docker-compose.yml` and set the `DOCKER_NOTEBOOK_IMAGE` you want JupyterHub to spawn for notebook servers. Example options (uncomment one):
+
+```yaml
+# JupyterHub will spawn this Notebook image for users
+# https://quay.io/repository/jupyter/base-notebook?tab=tags&tag=latest
+# DOCKER_NOTEBOOK_IMAGE: quay.io/jupyter/base-notebook:latest
+# DOCKER_NOTEBOOK_IMAGE: quay.io/jupyter/base-notebook:python-3.11
+DOCKER_NOTEBOOK_IMAGE: quay.io/jupyter/base-notebook:python-3.12
+```
+
+Recommendation: use the latest stable `base-notebook` tag that matches your project Python requirement (e.g., `python-3.12`).
+
+- **Step 3 — Start JupyterHub:**
+
+```bash
+docker compose up -d
+```
+
+- **Step 4 — Access the UI:**
+
+Open a browser to `http://localhost:8000` (adjust host/port if changed in `docker-compose.yml`).
+
+- **Step 5 — Admin user and sign-up:**
+
+By default you can allow local sign-up or predefine an admin via environment variables in `docker-compose.yml`:
+
+```yaml
+environment:
+  # This username will be a JupyterHub admin
+  JUPYTERHUB_ADMIN: admin
+```
+
+Create an account or sign in using the admin username above. The first user who signs up with the `JUPYTERHUB_ADMIN` username becomes an admin.
+
+- **Useful commands**
+
+```bash
+# View logs for the JupyterHub service
+cd jupyterhub && docker compose logs -f
+
+# Restart after changing config (e.g., jupyterhub_config.py or docker-compose.yml)
+cd jupyterhub && docker compose restart
+
+# Stop and remove volumes (reset state)
+docker compose down -v
+```
 
 ## 🔐 Authentication Methods
 

@@ -22,7 +22,7 @@ docker compose up -d
 
 ### 3. Configure Nginx 
 
-### Change Backend Server IPs
+#### Change Backend Server IPs
 Edit `./nginx_config/nginx.conf` to update the upstream server IPs:
 ```nginx
 upstream lm_studio_grp_1 {
@@ -31,7 +31,7 @@ upstream lm_studio_grp_1 {
 }
 ```
 
-### Change Load Balancing method 
+#### Change Load Balancing method 
 Uncomment one of these directives in the upstream block (Default: Round Robin):
 
 ```nginx
@@ -51,7 +51,13 @@ upstream lm_studio_grp_1 {
 docker compose restart
 ```
 
-### 6. View Analytics
+### 4. Make Test Request
+You can use the provided script to generate traffic:
+```bash
+curl -i http://localhost:8087/v1/chat/completions
+```
+
+### 4. View Analytics
 Open `./goaccess/report.html` to view the generated GoAccess HTML report.
 
 ## 📁 Project Structure
@@ -97,73 +103,6 @@ docker exec goaccess cat /etc/goaccess/goaccess.conf
 ```bash
 docker compose down -v
 docker compose up -d
-```
-
-## ⚖️ Load Balancing Configuration
-
-### Updating Backend Server IPs
-
-1. **Edit the nginx configuration**:
-   ```bash
-   nano ./nginx_config/nginx.conf
-   ```
-
-2. **Modify the upstream block**:
-   ```nginx
-   upstream lm_studio_grp_1 {
-       server 10.0.1.100:1234;    # Production server 1
-       server 10.0.1.101:1234;    # Production server 2
-       server 10.0.1.102:8000;    # Backup server
-   }
-   ```
-
-### Load Balancing Methods
-
-#### Round Robin (Default)
-```nginx
-upstream lm_studio_grp_1 {
-    server 192.168.1.100:1234;
-    server 192.168.1.101:8000;
-}
-```
-Distributes requests evenly across all servers.
-
-#### IP Hash
-```nginx
-upstream lm_studio_grp_1 {
-    ip_hash;
-    server 192.168.1.100:1234;
-    server 192.168.1.101:8000;
-}
-```
-Routes requests from the same client IP to the same server (session persistence).
-
-#### Least Connections
-```nginx
-upstream lm_studio_grp_1 {
-    least_conn;
-    server 192.168.1.100:1234;
-    server 192.168.1.101:8000;
-}
-```
-Routes to the server with the fewest active connections.
-
-#### Weighted Round Robin
-```nginx
-upstream lm_studio_grp_1 {
-    server 192.168.1.100:1234 weight=3;
-    server 192.168.1.101:8000 weight=1;
-}
-```
-Server with weight=3 receives 3x more requests than weight=1.
-
-#### Server Options
-```nginx
-upstream lm_studio_grp_1 {
-    server 192.168.1.100:1234 weight=3 max_fails=2 fail_timeout=30s;
-    server 192.168.1.101:8000 backup;  # Only used when primary servers fail
-    server 192.168.1.102:8000 down;    # Temporarily disabled
-}
 ```
 
 ## 🔖 References
