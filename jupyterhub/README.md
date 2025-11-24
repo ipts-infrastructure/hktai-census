@@ -40,17 +40,19 @@ JupyterHub supports multiple authentication methods. Edit `jupyterhub_config.py`
 Uncomment and configure in `jupyterhub_config.py`:
 ```python
 c.JupyterHub.authenticator_class = GoogleOAuthenticator
-c.GoogleOAuthenticator.client_id = 'your-client-id'
-c.GoogleOAuthenticator.client_secret = 'your-client-secret'
+c.GoogleOAuthenticator.client_id = '1234567890-abcdefg.apps.googleusercontent.com'
+c.GoogleOAuthenticator.client_secret = 'XyZ1234567890abcdefgHIJKL='
+c.GoogleOAuthenticator.oauth_callback_url = 'http://localhost:8000/hub/oauth_callback'
 ```
 
 ### Azure AD OAuth
 Uncomment and configure in `jupyterhub_config.py`:
 ```python
 c.JupyterHub.authenticator_class = AzureAdOAuthenticator
-c.AzureAdOAuthenticator.client_id = 'your-client-id'
-c.AzureAdOAuthenticator.client_secret = 'your-client-secret'
-c.AzureAdOAuthenticator.tenant_id = 'your-tenant-id'
+c.AzureAdOAuthenticator.client_id = '12345678-abcd-1234-abcd-1234567890ab'
+c.AzureAdOAuthenticator.client_secret = 'abcD3fGh1JKlMnoPqRsTuVwXyZ1234567890='
+c.AzureAdOAuthenticator.tenant_id = '87654321-dcba-4321-dcba-0987654321ba'
+c.AzureAdOAuthenticator.oauth_callback_url = 'https://localhost:8080/hub/oauth_callback'
 ```
 
 **Apply Configuration Changes:**

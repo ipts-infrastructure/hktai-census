@@ -20,36 +20,22 @@ cd nginx-goaccess-docker
 docker compose up -d
 ```
 
-### 3. Configure Test Script
-Edit `./scripts/send_requests.sh` to configure:
-- `REQUEST_URL`: Target endpoint (default: `http://localhost:81/v1/chat/completions`)
-- `MODEL_NAME`: Model identifier (default: `qwen/qwen3-vl-4b`)
+### 3. Configure Nginx 
 
-### 4. Generate Test Traffic
-```bash
-# Send 20 test requests
-./scripts/send_requests.sh 20
-```
-
-### 5. Configure Load Balancing
-
-#### Change Backend Server IPs
+### Change Backend Server IPs
 Edit `./nginx_config/nginx.conf` to update the upstream server IPs:
-
 ```nginx
 upstream lm_studio_grp_1 {
-    server 192.168.1.100:1234;  # Update to your server IP
-    server 192.168.1.101:8000;  # Add/remove servers as needed
+    server 192.168.1.100:1234;  # lm studio 1 ip
+    server 192.168.1.101:8000;  # lm studio 2 ip
 }
 ```
 
-#### Load Balancing Methods
-Uncomment one of these directives in the upstream block:
+### Change Load Balancing method 
+Uncomment one of these directives in the upstream block (Default: Round Robin):
 
 ```nginx
 upstream lm_studio_grp_1 {
-    # Round Robin (default) - distributes requests evenly
-    
     # ip_hash;  # Routes same client IP to same server
     # least_conn;  # Routes to server with fewest active connections
     # random;  # Routes randomly (nginx 1.15.1+)
@@ -61,12 +47,6 @@ upstream lm_studio_grp_1 {
 
 #### Apply Configuration Changes
 ```bash
-# Test configuration syntax
-docker exec nginx nginx -t
-
-# Reload configuration without downtime
-docker exec nginx nginx -s reload
-
 # Or restart entire stack
 docker compose restart
 ```
