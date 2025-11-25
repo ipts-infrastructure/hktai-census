@@ -12,4 +12,6 @@ RUN python3 -m pip install --no-cache-dir \
 # Install an Authenticator (supports GitHub, Google, Azure AD, Okta, Keycloak, etc.)
 RUN pip install oauthenticator
 
+RUN pip install jupyterhub-ldapauthenticator
+
 CMD ["jupyterhub", "-f", "/srv/jupyterhub/jupyterhub_config.py"]

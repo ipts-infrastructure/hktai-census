@@ -6,6 +6,7 @@ import os
 
 from oauthenticator.google import GoogleOAuthenticator
 from oauthenticator.azuread import AzureAdOAuthenticator
+from ldapauthenticator import LDAPAuthenticator
 
 c = get_config()  # noqa: F821
 
@@ -76,6 +77,19 @@ c.NativeAuthenticator.open_signup = True
 # c.AzureAdOAuthenticator.oauth_callback_url = 'https://localhost:8080/hub/oauth_callback'
 # c.AzureAdOAuthenticator.tenant_id = 'xxxx'  # Optional, defaults to common
 # c.AzureAdOAuthenticator.allow_all = True  # Or restrict with allowed_emails
+
+c.JupyterHub.authenticator_class = 'ldap'
+c.LDAPAuthenticator.server_address = "ldap.organisation.org"
+c.LDAPAuthenticator.server_port = 636
+c.LDAPAuthenticator.bind_dn_template = "uid={username},ou=people,dc=organisation,dc=org"
+c.LDAPAuthenticator.user_attribute = "uid"
+c.LDAPAuthenticator.user_search_base = "ou=people,dc=organisation,dc=org"
+c.LDAPAuthenticator.attributes = ["uid", "cn", "mail", "ou", "o"]
+# The following is an example of a search_filter which is build on LDAP AND and OR operations
+# here in this example as a combination of the LDAP attributes 'ou', 'mail' and 'uid'
+sf = "(&(o={o})(ou={ou}))".format(o="yourOrganisation", ou="yourOrganisationalUnit")
+sf += "(&(o={o})(mail={mail}))".format(o="yourOrganisation", mail="yourMailAddress")
+c.LDAPAuthenticator.search_filter = f"(&({{userattr}}={{username}})(|{sf}))"
 
 # Allowed admins
 admin = os.environ.get("JUPYTERHUB_ADMIN")

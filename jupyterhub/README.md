@@ -130,5 +130,5 @@ docker compose up -d
 - [JupyterHub Documentation](https://jupyterhub.readthedocs.io/) - JupyterHub setup and configuration
 - [Jupyter Base Notebook Image](https://quay.io/repository/jupyter/base-notebook?tab=tags&tag=latest) - Official Jupyter base notebook Docker image repository
 - [JupyterHub Docker Deployment](https://github.com/jupyterhub/jupyterhub-deploy-docker) - Reference deployment of JupyterHub with Docker
-
+- [ldapauthenticator](https://github.com/jupyterhub/ldapauthenticator) - LDAP Authenticator Plugin for Jupyter
 ## 📄 License
